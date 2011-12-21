@@ -88,10 +88,6 @@ class FilesystemAdapter {
 			foreach($content as $path) {
 				$splitSrc = explode('/', $path);
 				$splitDst = explode('/', $dst);
-				$t = array(
-					'src' => $splitSrc,
-					'dst' => $splitDst
-				);
 				$subDst = join('/', $splitDst + $splitSrc);
 				$this->cp($path, $subDst);
 			}

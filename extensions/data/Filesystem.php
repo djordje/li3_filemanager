@@ -110,7 +110,7 @@ class Filesystem {
 	}
 	
 	/**
-	 * This method is wrapper for same mthod in adapter
+	 * This method is wrapper for same method in adapter
 	 * Call it and pass param
 	 * @param array $postedFiles
 	 * @param string $dst
