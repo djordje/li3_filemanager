@@ -9,7 +9,4 @@
 </div>
 <?php endif; ?>
 
-<?=$this->form->create(NULL, array('type' => 'file')); ?>
-<?=$this->form->field('files[]', array('type' => 'file', 'multiple' => 'true')); ?>
-<?=$this->form->submit('Upload'); ?>
-<?=$this->form->end(); ?>
+<?=$this->uploadform->generate(); ?>
