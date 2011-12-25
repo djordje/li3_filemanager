@@ -2,49 +2,55 @@
 
 namespace li3_filemanager\extensions\data;
 
-class Locations {
+use lithium\core\Libraries;
+
+class Locations extends \lithium\core\Adaptable {
 	
-	/**
-	 * Place holder for storing named configurations
-	 * @var array
-	 */
 	protected static $_configurations = array();
 	
-	/**
-	 * This static method give us abillity to create new configurations from bootstrap or any
-	 * other place in our application
-	 * @param string $name - name for configuration, we access this configuration by this name
-	 * @param array $config - pass configuration (just 'path' for now, because we always
-	 * use `'li3_filemanager\extensions\data\FilesystemAdapter'` adapter
-	 * @example
-	 * {{{
-	 *		use \li3_filemanager\extensions\data\Locations;
-	 *		Locations::add('img', array(
-	 *			'path' => LITHIUM_APP_PATH.'/webroot/images'
-	 *		));
-	 * }}}
-	 */
+	protected static $_adapters = 'data.source';
+	
 	public static function add($name, array $config = array()) {
 		$defaults = array(
-			'path' => LITHIUM_APP_PATH.'/webroot/img',
-			'adapter' => 'li3_filemanager\extensions\data\FilesystemAdapter'
+			'adapter'  => null,
+			'location' => LITHIUM_APP_PATH.'/libraries/li3_filemanager/resources/fs',
 		);
-		self::$_configurations[$name] = $config + $defaults;
+		return static::$_configurations[$name] = $config + $defaults;
 	}
+
 	
-	/**
-	 * Get configuration by name
-	 * If configuration exists this method return preconfigured adapter object
-	 * @param string $name
-	 * @return mixed (object or boolean [FALSE])
-	 */
-	public static function get($name) {
-		if (isset (self::$_configurations[$name])) {
-			return new self::$_configurations[$name]['adapter'](array(
-				'path' => self::$_configurations[$name]['path']
-			));
+	public static function get($name = null, array $options = array()) {
+		static $mockAdapter;
+		
+		$defaults = array('config' => false, 'autoCreate' => true);
+		$options += $defaults;
+
+		if ($name === false) {
+			if (!$mockAdapter) {
+				$class = Libraries::locate('data.source', 'Mock');
+				$mockAdapter = new $class();
+			}
+			return $mockAdapter;
 		}
-		return FALSE;
+
+		if (!$name) {
+			return array_keys(static::$_configurations);
+		}
+
+		if (!isset(static::$_configurations[$name])) {
+			return null;
+		}
+		if ($options['config']) {
+			return static::_config($name);
+		}
+		$settings = static::$_configurations[$name];
+
+		if (!isset($settings[0]['object'])) {
+			if (!$options['autoCreate']) {
+				return null;
+			}
+		}
+		return static::adapter($name);
 	}
 	
 }
