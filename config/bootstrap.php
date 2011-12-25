@@ -5,9 +5,10 @@
  * Define development locations
  */
 
-li3_filemanager\extensions\data\Locations::add('default', array(
-	'path' => LITHIUM_APP_PATH.'/libraries/li3_filemanager/resources/fs'
+use li3_filemanager\extensions\data\Locations;
+
+Locations::add('default', array(
+	'adapter' => 'Filesystem'
 ));
-li3_filemanager\extensions\data\Locations::add('img');
 
 ?>
