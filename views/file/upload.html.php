@@ -9,4 +9,4 @@
 </div>
 <?php endif; ?>
 
-<?=$this->uploadform->generate(); ?>
+<?=$this->uploadForm->generate(); ?>
