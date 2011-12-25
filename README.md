@@ -15,3 +15,6 @@ Include the library in yor `/app/config/bootstrap/libraries.php`
 
 	Go to your application URL /file
 	By default you are browsing libraries/li3_filemanager/resources/fs
+
+## TODO:
+	Problems on live Linux box, recursive delete not working, define 0777 mode on dir creation, fix redirect and refresh after delete action.
