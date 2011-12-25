@@ -6,10 +6,31 @@ use lithium\core\Libraries;
 
 class Locations extends \lithium\core\Adaptable {
 	
+	/**
+	 * Named configurations (Locations) place holder
+	 * @var array
+	 */
 	protected static $_configurations = array();
 	
+	/**
+	 * Libraries::locate() compatible path to adapters for this class.
+	 * @var string Dot-delimited path.
+	 */
 	protected static $_adapters = 'data.source';
 	
+	/**
+	 * Add new named location
+	 * 
+	 * {{{
+	 *		Locations::add('default', array(
+	 *			'adapter' => 'Filesystem',
+	 *			'location' => LITHIUM_APP_PATH.'/webroot/img'
+	 *		));
+	 * }}}
+	 * 
+	 * @param string $name - Location name
+	 * @param array $config - pass configuration array
+	 */
 	public static function add($name, array $config = array()) {
 		$defaults = array(
 			'adapter'  => null,
@@ -19,6 +40,13 @@ class Locations extends \lithium\core\Adaptable {
 	}
 
 	
+	/**
+	 * Get instance of named location
+	 * @staticvar class $mockAdapter
+	 * @param string $name - name of location
+	 * @param array $options
+	 * @return class (instance of adapter)
+	 */
 	public static function get($name = null, array $options = array()) {
 		static $mockAdapter;
 		
