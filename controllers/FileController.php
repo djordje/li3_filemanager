@@ -2,10 +2,10 @@
 
 namespace li3_filemanager\controllers;
 
-use li3_filemanager\extensions\data\Filesystem;
+use li3_filemanager\models\File;
 
 class FileController extends \lithium\action\Controller {
-	
+
 	/**
 	 * Define application view paths
 	 */
@@ -22,9 +22,9 @@ class FileController extends \lithium\action\Controller {
 	public function index() {
 		return $this->redirect('File::browse');
 	}
-	
+
 	/**
-	 * Take args from url and pass it to Filesystem::ls()
+	 * Take args from url and pass it to File::ls()
 	 */
 	public function browse() {
 		$path = func_get_args();
@@ -41,15 +41,15 @@ class FileController extends \lithium\action\Controller {
 			};
 			$parrent = $createParrent($parrent);
 		}
-		$ls = Filesystem::ls($path);
+		$ls = File::ls($path);
 		$empty = FALSE;
 		if ($ls === FALSE) {
 			$empty = TRUE;
 		}
 		return compact('ls', 'empty', 'parrent');
-		
+
 	}
-	
+
 	/**
 	 * Create dir in location that match current url args
 	 */
@@ -61,12 +61,12 @@ class FileController extends \lithium\action\Controller {
 				$path .= '/';
 			}
 			$path .= $this->request->data['name'];
-			if (Filesystem::mkdir($path)) {
+			if (File::mkdir($path)) {
 				return $this->redirect(array('File::browse', 'args' => $this->request->params['args']));
 			}
 		}
 	}
-	
+
 	/**
 	 * Copy file or dir that match current url args to posted location
 	 */
@@ -74,7 +74,7 @@ class FileController extends \lithium\action\Controller {
 		if (func_get_args()) {
 			$path = join('/', func_get_args());
 			if ($this->request->data) {
-				if (Filesystem::cp($path, $this->request->data['dst'])) {
+				if (File::cp($path, $this->request->data['dst'])) {
 					return $this->redirect('File::browse');
 				}
 			}
@@ -83,7 +83,7 @@ class FileController extends \lithium\action\Controller {
 			return $this->redirect('File::browse');
 		}
 	}
-	
+
 	/**
 	 * Rename file or dir that match current url args to posted name
 	 */
@@ -103,7 +103,7 @@ class FileController extends \lithium\action\Controller {
 				return join('/', $arg).$new;
 			};
 			if ($this->request->data) {
-				if (Filesystem::mv($path, $createTo($this->request->data['to'], $argf))) {
+				if (File::mv($path, $createTo($this->request->data['to'], $argf))) {
 					return $this->redirect('File::browse');
 				}
 			}
@@ -112,7 +112,7 @@ class FileController extends \lithium\action\Controller {
 			return $this->redirect('File::browse');
 		}
 	}
-	
+
 	/**
 	 * Move file or dir from location that match url args to posted location
 	 */
@@ -120,7 +120,7 @@ class FileController extends \lithium\action\Controller {
 		if (func_get_args()) {
 			$path = join('/', func_get_args());
 			if ($this->request->data) {
-				if (Filesystem::mv($path, $this->request->data['to'])) {
+				if (File::mv($path, $this->request->data['to'])) {
 					return $this->redirect('File::browse');
 				}
 			}
@@ -142,7 +142,7 @@ class FileController extends \lithium\action\Controller {
 				return $path;
 			};
 			$parrent = $createParrent($this->request->params['args']);
-			if (Filesystem::rm($path)) {
+			if (File::rm($path)) {
 				return $this->redirect(array('File::browse', 'args' => $parrent));
 			} else {
 				return compact('parrent');
@@ -151,7 +151,7 @@ class FileController extends \lithium\action\Controller {
 			return $this->redirect('File::browse');
 		}
 	}
-	
+
 	/**
 	 * Delete dir (if not empty) that match current url args
 	 * Use carefully because this will delte everything inside that dir
@@ -165,7 +165,7 @@ class FileController extends \lithium\action\Controller {
 				return $path;
 			};
 			$parrent = $createParrent($this->request->params['args']);
-			if (Filesystem::rm($path, TRUE)) {
+			if (File::rm($path, TRUE)) {
 				return $this->redirect(array('File::browse', 'args' => $parrent));
 			} else {
 				return compact('parrent');
@@ -187,7 +187,7 @@ class FileController extends \lithium\action\Controller {
 			} else {
 				$path = join('/', $path);
 			}
-			if (Filesystem::upload($this->request->data['files'], $path)) {
+			if (File::upload($this->request->data['files'], $path)) {
 				return $this->redirect(array('File::browse', 'args' => $this->request->params['args']));
 			} else {
 				$error = TRUE;
@@ -195,7 +195,7 @@ class FileController extends \lithium\action\Controller {
 		}
 		return compact('error');
 	}
-	
+
 }
 
 ?>
