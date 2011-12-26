@@ -109,7 +109,12 @@ class Filesystem extends \lithium\core\Object {
 	public function rm($path) {
 		if (file_exists($path)) {
 			if (is_dir($path)) {
-				return rmdir($path);
+				$glob = $this->ls($path.'/*');
+				if (empty ($glob)) {
+					return rmdir($path);
+				} else {
+					return FALSE;
+				}
 			} else {
 				return unlink($path);
 			}
