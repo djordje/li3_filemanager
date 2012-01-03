@@ -14,6 +14,7 @@ class FileController extends \lithium\action\Controller {
 		$this->_render['paths']['layout'] = LITHIUM_APP_PATH . '/views/layouts/default.html.php';
 		$this->_render['paths']['element'] = '{:library}/views/elements/{:template}.html.php';
 		parent::_init();
+		$this->response->cache(false);
 	}
 
 	/**
