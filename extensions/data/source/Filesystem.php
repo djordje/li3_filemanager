@@ -88,7 +88,7 @@ class Filesystem extends \lithium\core\Object {
 	
 	/**
 	 * Make new directory on passed path
-	 * Path is relative ro root defined by constructor
+	 * Path is relative to root defined by constructor
 	 * @param string $name
 	 * @return boolean
 	 */
