@@ -197,7 +197,7 @@ class Ftp extends \lithium\core\Object {
 	 * @return boolean
 	 */
 	public function cp($src, $dst) {
-		$temp = getenv('TEMP');
+		$temp = sys_get_temp_dir();
 		if ($this->_isDir($src)) {
 			if ($this->mkdir($dst)) {
 				$content = $this->ls("{$src}/*", true);
@@ -279,6 +279,7 @@ class Ftp extends \lithium\core\Object {
 		foreach ($postedFiles as $file) {
 			if ($file['error'] == 0 && $this->_isDir($dst)) {
 				ftp_put($this->_connection, "{$dst}/{$file['name']}", $file['tmp_name'], FTP_BINARY);
+				unlink($file['name']);
 			} else {
 				return FALSE;
 			}
