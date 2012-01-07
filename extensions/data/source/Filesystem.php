@@ -19,6 +19,34 @@ class Filesystem extends \lithium\core\Object {
 	}
 	
 	/**
+	 * This method prettify data array passed to `$input` param
+	 * We pass array with files and directories names
+	 * This method sort it in arrays (files, dirs)
+	 * Each file or directory is array of meta data (path, name, mode, size)
+	 * @param array $input
+	 * @return array 
+	 */
+	protected function _prettifyOutput($input) {
+		$output = array(
+			'dirs' => array(),
+			'files' => array()
+		);
+		foreach ($input as $path) {
+			$meta = array('path' => null, 'name' => null, 'mode' => null, 'size' => null);
+			$meta['path'] = $path;
+			$meta['name'] = basename($path);
+			$meta['mode'] = substr(sprintf('%o', fileperms($path)), -4);
+			if (is_dir($path)) {
+				$output['dirs'][] = $meta;
+			} else {
+				$meta['size'] = filesize($path);
+				$output['files'][] = $meta;
+			}
+		}
+		return $output;
+	}
+
+		/**
 	 * Pass filter to ls and you'll get file and dir list that mach pattern or FALSE
 	 * This method is relative to currrent dir (defined in location passed to constructor)
 	 * @example
@@ -27,11 +55,17 @@ class Filesystem extends \lithium\core\Object {
 	 *		ls('li/*')      ---> everything in root/li3 dir
 	 *		ls('img/*.jpg') ---> every file with `.jpg` extension in root/img dir
 	 * @param string $filter
+	 * @param boolean $raw
+	 *			- if true method return folder content as array of names
+	 *			- if false method return array from `_prettifyOutput()` method
 	 * @return mixed (boolean FALSE or array of paths)
 	 */
-	public function ls($ls) {
+	public function ls($ls, $raw = false) {
 		if ($glob = glob($ls)) {
-			return $glob;
+			if ($raw) {
+				return $glob;
+			}
+			return $this->_prettifyOutput($glob);
 		} else {
 			$parrent = function($path) {
 				$split = explode('/', $path);
@@ -133,7 +167,7 @@ class Filesystem extends \lithium\core\Object {
 	 */
 	public function rmR($path) {
 		if (is_dir($path)) {
-			$content = $this->ls($path.'/*');
+			$content = $this->ls("{$path}/*");
 			foreach ($content as $file) {
 				$this->rmR($file);
 			}
