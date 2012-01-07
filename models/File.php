@@ -56,32 +56,9 @@ class File extends \lithium\core\StaticObject {
 	public static function ls($ls = '*') {
 		$adapter = static::_init();
 		if ($content = $adapter->ls($ls)) {
-			$output = array(
-				'dirs' => array(),
-				'files' => array()
-			);
-			foreach ($content as $path) {
-				if (is_dir($path)) {
-					$output['dirs'][$path] = array(
-						'path' => $path,
-						'name' => basename($path),
-						'realpath' => realpath($path),
-						'mode' => substr(sprintf('%o', fileperms($path)), -4)
-					);
-				} else {
-					$output['files'][$path] = array(
-						'path' => $path,
-						'name' => basename($path),
-						'realpath' => realpath($path),
-						'mode' => substr(sprintf('%o', fileperms($path)), -4),
-						'size' => filesize($path)
-					);
-				}
-			}
-		} else {
-			$output = $content;
+			return $content;
 		}
-		return $output;
+		return false;
 	}
 
 	/**
