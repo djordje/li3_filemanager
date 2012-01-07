@@ -46,7 +46,7 @@ class Filesystem extends \lithium\core\Object {
 		return $output;
 	}
 
-		/**
+	/**
 	 * Pass filter to ls and you'll get file and dir list that mach pattern or FALSE
 	 * This method is relative to currrent dir (defined in location passed to constructor)
 	 * @example
