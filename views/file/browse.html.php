@@ -30,32 +30,32 @@
 		<th>Size</th>
 		<th>Controlls</th>
 	</tr>
-	<?php	foreach ($ls['dirs'] as $p => $dir): ?>
+	<?php	foreach ($ls['dirs'] as $dir): ?>
 	<tr>
-		<td><strong><?=$this->html->link('[ '.$dir['name'].' ]', array('File::browse', 'args' => ($p))); ?></strong></td>
+		<td><strong><?=$this->html->link('[ '.$dir['name'].' ]', array('File::browse', 'args' => ($dir['path']))); ?></strong></td>
 		<td><?=$dir['path']; ?></td>
 		<td><?=$dir['mode']; ?></td>
 		<td>[ dir ]</td>
 		<td>
-			<?=$this->html->link('Delete if empty', array('File::remove', 'args' => ($p))); ?> | 
-			<?=$this->html->link('Delete recursive', array('File::remover', 'args' => ($p))); ?> |
-			<?=$this->html->link('Copy', array('File::copy', 'args' => ($p))); ?> | 
-			<?=$this->html->link('Rename', array('File::rename', 'args' => ($p))); ?> | 
-			<?=$this->html->link('Move', array('File::move', 'args' => ($p))); ?>
+			<?=$this->html->link('Delete if empty', array('File::remove', 'args' => ($dir['path']))); ?> | 
+			<?=$this->html->link('Delete recursive', array('File::remover', 'args' => ($dir['path']))); ?> |
+			<?=$this->html->link('Copy', array('File::copy', 'args' => ($dir['path']))); ?> | 
+			<?=$this->html->link('Rename', array('File::rename', 'args' => ($dir['path']))); ?> | 
+			<?=$this->html->link('Move', array('File::move', 'args' => ($dir['path']))); ?>
 		</td>
 	</tr>
 	<?php	endforeach; ?>
-	<?php	foreach ($ls['files'] as $name => $file): ?>
+	<?php	foreach ($ls['files'] as $file): ?>
 	<tr>
 		<td><strong><?=$file['name']; ?></strong></td>
 		<td><?=$file['path']; ?></td>
 		<td><?=$file['mode']; ?></td>
 		<td><?=$file['size']; ?> bytes</td>
 		<td>
-			<?=$this->html->link('Delete', array('File::remove', 'args' => ($name))); ?> | 
-			<?=$this->html->link('Copy', array('File::copy', 'args' => ($name))); ?> | 
-			<?=$this->html->link('Rename', array('File::rename', 'args' => ($name))); ?> | 
-			<?=$this->html->link('Move', array('File::move', 'args' => ($name))); ?>
+			<?=$this->html->link('Delete', array('File::remove', 'args' => ($file['path']))); ?> | 
+			<?=$this->html->link('Copy', array('File::copy', 'args' => ($file['path']))); ?> | 
+			<?=$this->html->link('Rename', array('File::rename', 'args' => ($file['path']))); ?> | 
+			<?=$this->html->link('Move', array('File::move', 'args' => ($file['path']))); ?>
 		</td>
 	</tr>
 	<?php	endforeach; ?>
