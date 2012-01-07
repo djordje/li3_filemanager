@@ -2,6 +2,12 @@
 
 namespace li3_filemanager\extensions\data\source;
 
+/**
+ * Ftp data source/adapter
+ * _init() connect to defined FTP, so all other actions take same location
+ * as a root (FTP connection root). All actions are named by UNIX bash command names
+ * This object abstract default PHP functions so we can perform recursive copy and remove
+ */
 class Ftp extends \lithium\core\Object {
 	
 	/**
