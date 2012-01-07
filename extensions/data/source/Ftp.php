@@ -235,6 +235,11 @@ class Ftp extends \lithium\core\Object {
 		return ftp_rename($this->_connection, $from, $to);
 	}
 	
+	/**
+	 * Remove file or empty directory
+	 * @param string $path
+	 * @return boolean
+	 */
 	public function rm($path) {
 		if ($this->_isDir($path)) {
 			return ftp_rmdir($this->_connection, $path);
@@ -243,6 +248,11 @@ class Ftp extends \lithium\core\Object {
 		}
 	}
 	
+	/**
+	 * Recursive remove (enable removing directory with content)
+	 * @param string $path
+	 * @return boolean
+	 */
 	public function rmR($path) {
 		if ($this->_isDir($path)) {
 			$content = $this->ls("{$path}/*", true);
