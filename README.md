@@ -16,5 +16,21 @@ Include the library in yor `/app/config/bootstrap/libraries.php`
 	Go to your application URL /file
 	By default you are browsing libraries/li3_filemanager/resources/fs
 
-## TODO:
+## Add location
+
+		Filesystem:
+		Location::add('default', array(
+			'adapter' => 'Filesystem',
+			'location' => LITHIUM_APP_PATH.'/libraries/li3_filemanager/resources/fs'
+		));
+
+		FTP:
+		Locations::add('default', array(
+			'adapter' => 'Ftp',
+			'host' => 'ftp.yourdomain.com',
+			'username' => 'username@yourdomain.com',
+			'password' => 'yourPassword'
+		));
+
+## INFO:
 	- If PHP runs in safe mode plugin does not work correctly
