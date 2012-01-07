@@ -34,7 +34,14 @@ class Locations extends \lithium\core\Adaptable {
 	public static function add($name, array $config = array()) {
 		$defaults = array(
 			'adapter'  => null,
-			'location' => LITHIUM_APP_PATH.'/libraries/li3_filemanager/resources/fs',
+			'location' => null,
+			'host' => null,
+			'username' => null,
+			'password' => null,
+			'ssl' => false,
+			'port' => 21,
+			'timeout' => 90,
+			'passive' => true
 		);
 		return static::$_configurations[$name] = $config + $defaults;
 	}
