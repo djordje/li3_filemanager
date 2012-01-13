@@ -9,13 +9,13 @@ namespace li3_filemanager\extensions\data\source;
  * This object abstract default PHP functions so we can perform recursive copy and remove
  */
 class Ftp extends \lithium\core\Object {
-	
+
 	/**
 	 * Tell us does we successfully connected and loged in on FTP server
 	 * @var boolean
 	 */
 	protected $_connected = false;
-	
+
 	/**
 	 * Connection stream place holder
 	 */
@@ -28,7 +28,7 @@ class Ftp extends \lithium\core\Object {
 		parent::_init();
 		$this->_connect();
 	}
-	
+
 	/**
 	 * This method setup connection (FTP, SFTP) and prepare
 	 * connection stream, then try to login.
@@ -60,9 +60,9 @@ class Ftp extends \lithium\core\Object {
 				ftp_pasv($this->_connection, $this->_config['passive']);
 			}
 		}
-		
+
 	}
-	
+
 	/**
 	 * This method close connection stream
 	 */
@@ -72,7 +72,7 @@ class Ftp extends \lithium\core\Object {
 			$this->_connected = false;
 		}
 	}
-	
+
 	/**
 	 * This method emulate PHP's is_dir() in FTP enviorment
 	 * @param string $path
@@ -93,14 +93,14 @@ class Ftp extends \lithium\core\Object {
 	public function __destruct() {
 		$this->_disconnect();
 	}
-	
+
 	/**
 	 * This method prettify data array passed to `$input` param
 	 * We pass array with files and directories names
 	 * This method sort it in arrays (files, dirs)
 	 * Each file or directory is array of meta data (path, name, mode, size)
 	 * @param array $input
-	 * @return array 
+	 * @return array
 	 */
 	protected function _prettifyOutput($input) {
 		$output = array('dirs' => array(), 'files' => array());
@@ -175,7 +175,7 @@ class Ftp extends \lithium\core\Object {
 			return $this->_prettifyOutput($output);
 		}
 	}
-	
+
 	/**
 	 * Make new directory on passed path
 	 * Path is relative to root of FTP connection
@@ -185,7 +185,7 @@ class Ftp extends \lithium\core\Object {
 	public function mkdir($name) {
 		return ftp_mkdir($this->_connection, $name);
 	}
-	
+
 	/**
 	 * This method emulate `copy()` on FTP
 	 * FTP doesn't support copy, but we can emulate this (of course it is lot slower then native)
@@ -222,7 +222,7 @@ class Ftp extends \lithium\core\Object {
 			}
 		}
 	}
-	
+
 	/**
 	 * This is wrapper for default PHP ftp_rename function
 	 * We use this method for rename and move of a file or dir
@@ -234,7 +234,7 @@ class Ftp extends \lithium\core\Object {
 	public function mv($from, $to) {
 		return ftp_rename($this->_connection, $from, $to);
 	}
-	
+
 	/**
 	 * Remove file or empty directory
 	 * @param string $path
@@ -247,7 +247,7 @@ class Ftp extends \lithium\core\Object {
 			return ftp_delete($this->_connection, $path);
 		}
 	}
-	
+
 	/**
 	 * Recursive remove (enable removing directory with content)
 	 * @param string $path
@@ -261,10 +261,10 @@ class Ftp extends \lithium\core\Object {
 			}
 			return $this->rm($path);
 		} else {
-			$this->rm($path);
+			return $this->rm($path);
 		}
 	}
-	
+
 	/**
 	 * This method move uploaded files to specified destination on FTP
 	 * We pass array of posted files and desired destination and this method
@@ -273,20 +273,25 @@ class Ftp extends \lithium\core\Object {
 	 * Passed destination path is relative to FTP connection root
 	 * @param array $postedFiles
 	 * @param string $dst
+	 * @param boolean $removeAfterUpload
+	 *			- Because we emulate PHP's `move_after_upload()` function
+	 *			we have to allow override of temp file unlink for testing purposes
 	 * @return boolean
 	 */
-	public function upload($postedFiles, $dst) {
+	public function upload($postedFiles, $dst, $removeAfterUpload = true) {
 		foreach ($postedFiles as $file) {
 			if ($file['error'] == 0 && $this->_isDir($dst)) {
 				ftp_put($this->_connection, "{$dst}/{$file['name']}", $file['tmp_name'], FTP_BINARY);
-				unlink($file['name']);
+				if ($removeAfterUpload) {
+					unlink($file['name']);
+				}
 			} else {
 				return FALSE;
 			}
 		}
 		return TRUE;
 	}
-	
+
 }
 
 ?>
