@@ -9,7 +9,7 @@ namespace li3_filemanager\extensions\data\source;
  * This object abstract default PHP functions so we can perform recursive copy and remove
  */
 class Filesystem extends \lithium\core\Object {
-	
+
 	/**
 	 * Change current dir to one defined in location passed as config array
 	 */
@@ -17,14 +17,14 @@ class Filesystem extends \lithium\core\Object {
 		parent::_init();
 		chdir($this->_config['location']);
 	}
-	
+
 	/**
 	 * This method prettify data array passed to `$input` param
 	 * We pass array with files and directories names
 	 * This method sort it in arrays (files, dirs)
 	 * Each file or directory is array of meta data (path, name, mode, size)
 	 * @param array $input
-	 * @return array 
+	 * @return array
 	 */
 	protected function _prettifyOutput($input) {
 		$output = array(
@@ -85,7 +85,7 @@ class Filesystem extends \lithium\core\Object {
 			}
 		}
 	}
-	
+
 	/**
 	 * Make new directory on passed path
 	 * Path is relative to root defined by constructor
@@ -95,7 +95,7 @@ class Filesystem extends \lithium\core\Object {
 	public function mkdir($name) {
 		return mkdir($name);
 	}
-	
+
 	/**
 	 * This method expand default PHP copy to enable recursive copy
 	 * Passed source and destination is relative to root defined by constructor
@@ -120,7 +120,7 @@ class Filesystem extends \lithium\core\Object {
 			return FALSE;
 		}
 	}
-	
+
 	/**
 	 * This is wrapper for default PHP rename function
 	 * We use this method for rename and move of a file or dir
@@ -132,7 +132,7 @@ class Filesystem extends \lithium\core\Object {
 	public function mv($from, $to) {
 		return rename($from, $to);
 	}
-	
+
 	/**
 	 * Pass path of file or empty dir as a param and remove it
 	 * This method implements combination of PHP functions `unlink()` and `rmdir()`
@@ -143,7 +143,7 @@ class Filesystem extends \lithium\core\Object {
 	public function rm($path) {
 		if (file_exists($path)) {
 			if (is_dir($path)) {
-				$glob = $this->ls($path.'/*');
+				$glob = $this->ls($path.'/*', true);
 				if (empty ($glob)) {
 					return rmdir($path);
 				} else {
@@ -167,7 +167,7 @@ class Filesystem extends \lithium\core\Object {
 	 */
 	public function rmR($path) {
 		if (is_dir($path)) {
-			$content = $this->ls("{$path}/*");
+			$content = $this->ls("{$path}/*", true);
 			foreach ($content as $file) {
 				$this->rmR($file);
 			}
@@ -176,7 +176,7 @@ class Filesystem extends \lithium\core\Object {
 			$this->rm($path);
 		}
 	}
-	
+
 	/**
 	 * This method move uploaded files to specified destination
 	 * We pass array of posted files and desired destination and this method
@@ -196,7 +196,7 @@ class Filesystem extends \lithium\core\Object {
 		}
 		return TRUE;
 	}
-	
+
 }
 
 ?>
