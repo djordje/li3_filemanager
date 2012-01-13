@@ -17,7 +17,7 @@ class File extends \lithium\core\StaticObject {
 	protected static $_classes = array(
 		'locations' => 'li3_filemanager\extensions\data\Locations'
 	);
-	
+
 	/**
 	 * Location that will be used for `Locations::get($location)`
 	 * @var string
@@ -28,7 +28,7 @@ class File extends \lithium\core\StaticObject {
 	 * @var boolean
 	 */
 	protected static $_initialized = false;
-	
+
 	/**
 	 * If not initialized create adapter with defined location and return object
 	 * Otherwise return instantiated object
@@ -41,6 +41,14 @@ class File extends \lithium\core\StaticObject {
 			static::$_initialized = true;
 		}
 		return static::$_instances['adapter'];
+	}
+
+	/**
+	 * Reset initialized instaces
+	 * Just fo unit testing purposes
+	 */
+	public static function reset() {
+		static::$_initialized = false;
 	}
 
 	/**
