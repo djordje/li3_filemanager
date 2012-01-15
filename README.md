@@ -32,5 +32,13 @@ Include the library in yor `/app/config/bootstrap/libraries.php`
 			'password' => 'yourPassword'
 		));
 
+## Testing
+
+	Filesystem adapter have location setup for testing
+	Ftp adapter can be tested if you add FTP location config
+
 ## INFO:
 	- If PHP runs in safe mode plugin does not work correctly
+
+## TO DO:
+	- Add ability to filter uploadable files!
