@@ -24,6 +24,13 @@ Include the library in yor `/app/config/bootstrap/libraries.php`
 			'location' => LITHIUM_APP_PATH.'/libraries/li3_filemanager/resources/fs'
 		));
 
+		Filesystem with file URL:
+		Location::add('default', array(
+			'adapter' => 'Filesystem',
+			'location' => LITHIUM_APP_PATH.'/webroot/img',
+			'url' => 'http://example.com/img/'
+		));
+
 		FTP:
 		Locations::add('default', array(
 			'adapter' => 'Ftp',
