@@ -108,7 +108,6 @@ class FileTest extends \lithium\test\Unit {
 	public function testRm() {
 		foreach ($this->_adapters as $adapter) {
 			File::$location = $adapter;
-			$this->expectException();
 			$this->assertFalse(File::rm('test', false), "Location name: {$adapter}\n" . '{:message}');
 			$this->assertTrue(File::rm('test', true), "Location name: {$adapter}\n" . '{:message}');
 			File::reset();
