@@ -41,7 +41,8 @@ class Locations extends \lithium\core\Adaptable {
 			'ssl' => false,
 			'port' => 21,
 			'timeout' => 90,
-			'passive' => true
+			'passive' => true,
+			'url' => false
 		);
 		return static::$_configurations[$name] = $config + $defaults;
 	}
