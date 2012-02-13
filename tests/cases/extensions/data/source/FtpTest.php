@@ -27,7 +27,7 @@ class FtpTest extends \lithium\test\Unit {
 
 		foreach ($locations as $location) {
 			$config = Locations::get($location, array('config' => true));
-			if ($config['adapter'] === 'Ftp') {
+			if ($config['adapter'] === 'Ftp' && !$config['url']) {
 				switch ($location) {
 					case 'test':
 						$filesystemLocationName = $location;
@@ -54,7 +54,7 @@ class FtpTest extends \lithium\test\Unit {
 
 		$this->skipIf(
 			empty ($filesystemLocation),
-			'You dont have any location that use `Ftp` adapter'
+			'You dont have any location that use `Ftp` adapter, or you have `url` key configured'
 		);
 		$this->_adapterName = $filesystemLocationName;
 		$this->_adapter = Locations::get($filesystemLocationName);
@@ -139,19 +139,22 @@ class FtpTest extends \lithium\test\Unit {
 					'path' => 'test/one',
 					'name' => 'one',
 					'mode' => null,
-					'size' => null
+					'size' => null,
+					'url' => null
 				),
 				array(
 					'path' => 'test/tree',
 					'name' => 'tree',
 					'mode' => null,
-					'size' => null
+					'size' => null,
+					'url' => null
 				),
 				array(
 					'path' => 'test/two',
 					'name' => 'two',
 					'mode' => null,
-					'size' => null
+					'size' => null,
+					'url' => null
 				),
 			),
 			'files' => array(
@@ -159,13 +162,15 @@ class FtpTest extends \lithium\test\Unit {
 					'path' => 'test/DontRemove.txt',
 					'name' => 'DontRemove.txt',
 					'mode' => null,
-					'size' => 75
+					'size' => 75,
+					'url' => null
 				),
 				array(
 					'path' => 'test/Readme.txt',
 					'name' => 'Readme.txt',
 					'mode' => null,
-					'size' => 75
+					'size' => 75,
+					'url' => null
 				)
 			)
 		);
@@ -179,13 +184,15 @@ class FtpTest extends \lithium\test\Unit {
 					'path' => 'test/DontRemove.txt',
 					'name' => 'DontRemove.txt',
 					'mode' => null,
-					'size' => 75
+					'size' => 75,
+					'url' => null
 				),
 				array(
 					'path' => 'test/Readme.txt',
 					'name' => 'Readme.txt',
 					'mode' => null,
-					'size' => 75
+					'size' => 75,
+					'url' => null
 				)
 			)
 		);
