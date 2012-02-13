@@ -32,7 +32,7 @@ class Filesystem extends \lithium\core\Object {
 			'files' => array()
 		);
 		foreach ($input as $path) {
-			$meta = array('path' => null, 'name' => null, 'mode' => null, 'size' => null);
+			$meta = array('path' => null, 'name' => null, 'mode' => null, 'size' => null, 'url' => null);
 			$meta['path'] = $path;
 			$meta['name'] = basename($path);
 			$meta['mode'] = substr(sprintf('%o', fileperms($path)), -4);
@@ -40,6 +40,12 @@ class Filesystem extends \lithium\core\Object {
 				$output['dirs'][] = $meta;
 			} else {
 				$meta['size'] = filesize($path);
+				if ($url = $this->_config['url']) {
+					if (substr($url, -1) != '/') {
+						$url .= '/';
+					}
+					$meta['url'] = $url . $path;
+				}
 				$output['files'][] = $meta;
 			}
 		}
