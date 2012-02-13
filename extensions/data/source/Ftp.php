@@ -105,12 +105,19 @@ class Ftp extends \lithium\core\Object {
 	protected function _prettifyOutput($input) {
 		$output = array('dirs' => array(), 'files' => array());
 		$conn = $this->_connection;
-		$createMeta = function($path, $dir = true) use ($conn) {
-			$meta = array('path' => null, 'name' => null, 'mode' => null, 'size' => null);
+		$config = $this->_config;
+		$createMeta = function($path, $dir = true) use ($conn, $config) {
+			$meta = array('path' => null, 'name' => null, 'mode' => null, 'size' => null, 'url' => null);
 			$meta['path'] = $path;
 			$meta['name'] = basename($path);
 			if (!$dir) {
 				$meta['size'] = ftp_size($conn, $path);
+				if ($url = $config['url']) {
+					if (substr($url, -1) != '/') {
+						$url .= '/';
+					}
+					$meta['url'] = $url . $path;
+				}
 			}
 			return $meta;
 		};
