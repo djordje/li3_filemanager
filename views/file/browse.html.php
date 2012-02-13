@@ -26,6 +26,7 @@
 	<tr>
 		<th>Name</th>
 		<th>Path</th>
+		<th>Url</th>
 		<th>Mode</th>
 		<th>Size</th>
 		<th>Controlls</th>
@@ -34,6 +35,7 @@
 	<tr>
 		<td><strong><?=$this->html->link('[ '.$dir['name'].' ]', array('File::browse', 'args' => ($dir['path']))); ?></strong></td>
 		<td><?=$dir['path']; ?></td>
+		<td>[ dir ]</td>
 		<td><?=$dir['mode']; ?></td>
 		<td>[ dir ]</td>
 		<td>
@@ -49,6 +51,7 @@
 	<tr>
 		<td><strong><?=$file['name']; ?></strong></td>
 		<td><?=$file['path']; ?></td>
+		<td><?=$file['url'] ?></td>
 		<td><?=$file['mode']; ?></td>
 		<td><?=$file['size']; ?> bytes</td>
 		<td>
