@@ -6,10 +6,11 @@
  */
 
 use li3_filemanager\extensions\data\Locations;
+use lithium\core\Libraries;
 
 Locations::add('default', array(
 	'adapter' => 'Filesystem',
-	'location' => LITHIUM_APP_PATH.'/libraries/li3_filemanager/resources/fs'
+	'location' => Libraries::path('li3_filemanager\\', array('dirs' => true)) . '/resources/fs',
 ));
 
 ?>
