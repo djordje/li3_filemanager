@@ -15,7 +15,7 @@ class FilesystemTest extends \lithium\test\Unit {
 		parent::_init();
 		Locations::add('filesystemTest', array(
 			'adapter' => 'Filesystem',
-			'location' => LITHIUM_APP_PATH.'/libraries/li3_filemanager/resources/fs'
+			'location' => Libraries::path('li3_filemanager\\', array('dirs' => true)) . '/resources/fs',
 		));
 		$this->_adapter = Locations::get('filesystemTest');
 		$this->_li3_filemanager = Libraries::path('li3_filemanager\\', array('dirs' => true));
