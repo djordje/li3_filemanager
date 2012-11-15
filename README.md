@@ -11,29 +11,39 @@ Include the library in yor `/app/config/bootstrap/libraries.php`
 
 	Libraries::add('li3_filemanager');
 
+## Dependencies
+
+Your application shoud have:
+
+	jQuery, Twitter Bootstrap (CSS and JS)
+
+For building JS (li3_filemanager.min.js) you need:
+
+	node with this modules: grunt, uglify-js, jshint
+
 ## Usage
 
-	Go to your application URL /file
-	By default you are browsing libraries/li3_filemanager/resources/fs
+	Go to your application URL /fm
+	By default you are browsing app/webroot/img
 
 ## Add location
 
 		Filesystem:
 		Location::add('default', array(
-			'adapter' => 'Filesystem',
-			'location' => LITHIUM_APP_PATH.'/libraries/li3_filemanager/resources/fs'
+			'adapter' => 'FileSystem',
+			'location' => LITHIUM_APP_PATH.'/webroot/files'
 		));
 
 		Filesystem with file URL:
 		Location::add('default', array(
 			'adapter' => 'Filesystem',
-			'location' => LITHIUM_APP_PATH.'/webroot/img',
-			'url' => 'http://example.com/img/'
+			'location' => LITHIUM_APP_PATH.'/webroot/files'
+			'url' => 'http://example.com/files/'
 		));
 
 		FTP:
 		Locations::add('default', array(
-			'adapter' => 'Ftp',
+			'adapter' => 'FTP',
 			'host' => 'ftp.yourdomain.com',
 			'username' => 'username@yourdomain.com',
 			'password' => 'yourPassword'
@@ -41,11 +51,5 @@ Include the library in yor `/app/config/bootstrap/libraries.php`
 
 ## Testing
 
-	Filesystem adapter have location setup for testing
-	Ftp adapter can be tested if you add FTP location config
-
-## INFO:
-	- If PHP runs in safe mode plugin does not work correctly
-
-## TO DO:
-	- Add ability to filter uploadable files!
+	FileSystem adapter have location setup for testing
+	FTP adapter can be tested if you add FTP location config

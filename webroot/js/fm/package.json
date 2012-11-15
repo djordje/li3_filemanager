@@ -1,0 +1,6 @@
+{
+	"name":"li3_filemanager",
+	"author":"Djordje Kovacevic <http://djordjekovacevic.com>",
+	"dependencies": "jQuery, Twitter Bootstrap JS",
+	"description":"This is JavaScript frontend for li3_filemanager"
+}

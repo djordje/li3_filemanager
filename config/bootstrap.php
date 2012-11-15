@@ -1,16 +1,11 @@
 <?php
 
-/**
- * li3_filemanager bootstrap
- * Define development locations
- */
-
-use li3_filemanager\extensions\data\Locations;
-use lithium\core\Libraries;
+use li3_filemanager\extensions\storage\Locations;
 
 Locations::add('default', array(
-	'adapter' => 'Filesystem',
-	'location' => Libraries::path('li3_filemanager\\', array('dirs' => true)) . '/resources/fs',
+	'adapter' => 'FileSystem',
+	'location' => LITHIUM_APP_PATH . '/webroot/img',
+	'url' => 'http://localhost/dev/img'
 ));
 
 ?>
