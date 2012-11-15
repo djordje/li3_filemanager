@@ -29,7 +29,7 @@ class FilesController extends \lithium\action\Controller {
 		$this->_render['paths'] = array(
 			'template' => '{:library}/views/{:controller}/{:template}.{:type}.php',
 			'layout'   => LITHIUM_APP_PATH . '/views/layouts/default.html.php',
-			'element'  => '{:library}/views/elements/{:template}.html.php'
+			'element'  => LITHIUM_APP_PATH . '/views/elements/{:template}.html.php'
 		);
 		parent::_init();
 		$this->response->cache(false);
