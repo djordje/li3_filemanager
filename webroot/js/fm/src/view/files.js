@@ -30,7 +30,7 @@ FileManager.View.Files = {
 		output += '<button type="button" class="btn btn-small" title="Copy" data-action="copy" data-path="' + path + '">Copy</button>';
 		output += '<button type="button" class="btn btn-small" title="Cut" data-action="move" data-path="' + path + '">Cut</button>';
 		output += '<button type="button" class="btn btn-small btn-danger" title="Delete"  data-action="remove" data-path="' + path + '"><i class="icon-trash icon-white"></i></button>';
-		output += '</div></td><tr/>';
+		output += '</div></td></tr>';
 		return output;
 	},
 	data: null,
