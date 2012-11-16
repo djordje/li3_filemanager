@@ -11,6 +11,8 @@ Include the library in yor `/app/config/bootstrap/libraries.php`
 
 	Libraries::add('li3_filemanager');
 
+Require `session.php` in your app bootstrap file
+
 ## Dependencies
 
 Your application shoud have:
