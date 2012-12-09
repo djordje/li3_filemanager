@@ -1,0 +1,19 @@
+{
+	"name": "djordje/li3_filemanager",
+	"type": "lithium-library",
+	"description": "File management (file browser) for Lithium PHP framework",
+	"keywords": ["php", "file", "browser", "manage", "manager","lithium", "li3"],
+	"homepage": "https://github.com/djordje/li3_filemanager",
+	"license": "BSD-3-Clause",
+	"minimum-stability": "dev",
+	"authors": [
+		{
+			"name": "Djordje Kovacevic",
+			"homepage": "http://djordjekovacevic.com"
+		}
+	],
+	"require": {
+		"php": ">=5.3",
+		"composer/installers": "dev-master"
+	}
+}
