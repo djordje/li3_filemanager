@@ -1,3 +1,6 @@
+[![project status](http://stillmaintained.com/djordje/li3_filemanager.png)]
+(http://stillmaintained.com/djordje/li3_filemanager)
+
 # File manager plugin for the Lithium framework
 
 ## Instalation
