@@ -108,7 +108,8 @@
 	$(document).ready(function() {
 		FileManager.init(
 			<?php echo json_encode($url); ?>,
-			<?php echo json_encode(compact('data', 'breadcrumb')); ?>
+			<?php echo json_encode(compact('data', 'breadcrumb')); ?>,
+			$('[name="security[token]"]').val()
 		);
 	});
 </script>
