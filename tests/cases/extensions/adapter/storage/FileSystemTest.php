@@ -68,7 +68,12 @@ class FileSystemTest extends \lithium\test\Unit {
 	}
 	
 	public function testRead() {
-		$expected = array(
+		if(substr(strtoupper(PHP_OS), 0, 3) === 'WIN') {
+			$expected = 'expected_win';
+		} else {
+			$expected = 'expected_nix';
+		}
+		$expected_win = array(
 			array(
 				'name' => 'test.txt',
 				'dir' => false,
@@ -94,8 +99,34 @@ class FileSystemTest extends \lithium\test\Unit {
 				'mode' => '0777'
 			)
 		);
-		$this->assertEqual($expected, $this->_location->ls());
-		$expected = array(
+		$expected_nix = array(
+			array(
+				'name' => 'test.txt',
+				'dir' => false,
+				'url' => 'http://example.com/tmp/test.txt',
+				'path' => '/',
+				'size' => 18,
+				'mode' => '0664'
+			),
+			array(
+				'name' => 'Test_2',
+				'dir' => true,
+				'url' => 'http://example.com/tmp/Test_2',
+				'path' => '/',
+				'size' => null,
+				'mode' => '0775'
+			),
+			array(
+				'name' => 'Test_1',
+				'dir' => true,
+				'url' => 'http://example.com/tmp/Test_1',
+				'path' => '/',
+				'size' => null,
+				'mode' => '0775'
+			)
+		);
+		$this->assertEqual($$expected, $this->_location->ls());
+		$expected_win = array(
 			array(
 				'name' => 'first',
 				'dir' => true,
@@ -103,9 +134,19 @@ class FileSystemTest extends \lithium\test\Unit {
 				'path' => '/Test_1',
 				'size' => null,
 				'mode' => '0777'
-			),
+			)
 		);
-		$this->assertEqual($expected, $this->_location->ls('Test_1'));
+		$expected_nix = array(
+			array(
+				'name' => 'first',
+				'dir' => true,
+				'url' => 'http://example.com/tmp/Test_1/first',
+				'path' => '/Test_1',
+				'size' => null,
+				'mode' => '0775'
+			)
+		);
+		$this->assertEqual($$expected, $this->_location->ls('Test_1'));
 		$this->assertFalse($this->_location->ls('Test_99'));
 	}
 	
