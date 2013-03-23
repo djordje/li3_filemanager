@@ -46,7 +46,6 @@ class Location extends \lithium\core\StaticObject {
 	/**
 	 * Initialize location
 	 * Apply method filters
-	 * Apply additional inflector rules
 	 */
 	public static function __init() {
 		static::config();
@@ -84,18 +83,6 @@ class Location extends \lithium\core\StaticObject {
 			}
 			return $chain->next($self, $params, $chain);
 		});
-		Inflector::rules('transliteration', array(
-			'/Đ/' => 'Dj',
-			'/đ/' => 'dj',
-			'/Š/' => 'S',
-			'/š/' => 's',
-			'/Č|Ć/' => 'C',
-			'/č|ć/' => 'c',
-			'/Ž/' => 'Z',
-			'/ž/' => 'z',
-			'/Dž/' => 'Dz',
-			'/dž/' => 'dz'
-		));
 	}
 
 	/**
