@@ -125,7 +125,9 @@ class FileSystemTest extends \lithium\test\Unit {
 				'mode' => '0775'
 			)
 		);
-		$this->assertEqual($$expected, $this->_location->ls());
+		foreach($this->_location->ls() as $result) {
+			$this->assertTrue(in_array($result, $$expected));
+		}
 		$expected_win = array(
 			array(
 				'name' => 'first',
