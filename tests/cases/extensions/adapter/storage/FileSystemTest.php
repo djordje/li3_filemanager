@@ -101,12 +101,12 @@ class FileSystemTest extends \lithium\test\Unit {
 		);
 		$expected_nix = array(
 			array(
-				'name' => 'Test_2',
-				'dir' => true,
-				'url' => 'http://example.com/tmp/Test_2',
+				'name' => 'test.txt',
+				'dir' => false,
+				'url' => 'http://example.com/tmp/test.txt',
 				'path' => '/',
-				'size' => null,
-				'mode' => '0775'
+				'size' => 18,
+				'mode' => '0664'
 			),
 			array(
 				'name' => 'Test_1',
@@ -117,12 +117,12 @@ class FileSystemTest extends \lithium\test\Unit {
 				'mode' => '0775'
 			),
 			array(
-				'name' => 'test.txt',
-				'dir' => false,
-				'url' => 'http://example.com/tmp/test.txt',
+				'name' => 'Test_2',
+				'dir' => true,
+				'url' => 'http://example.com/tmp/Test_2',
 				'path' => '/',
-				'size' => 18,
-				'mode' => '0664'
+				'size' => null,
+				'mode' => '0775'
 			)
 		);
 		$this->assertEqual($$expected, $this->_location->ls());
